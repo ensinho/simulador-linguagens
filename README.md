@@ -332,4 +332,4 @@ simulador-linguagens/
 
 ## Autores
 - _Enzo Esmeraldo_, matrícula _2516948_
-- _Lucas Braide_, matrícula 
+- _Lucas Braide_, matrícula _2526367_

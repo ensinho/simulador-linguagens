@@ -5,7 +5,7 @@
 **Disciplina:** Aspectos Teóricos da Computação (T291, turma 9)
 **Professor:** Ildo Ramos Vieira
 **Avaliação:** AV3, projeto prático em dupla
-**Alunos:** _Enzo Esmeraldo (2516948)_ e _Lucas Braide_
+**Alunos:** _Enzo Esmeraldo (2516948)_ e _Lucas Braide (2526367)_
 **Repositório:** https://github.com/ensinho/simulador-linguagens
 **Data:** novembro de 2026
 

@@ -11,3 +11,9 @@ venv/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Frontend React
+web/node_modules/
+web/dist/
+*.tsbuildinfo
+

@@ -1,0 +1,9 @@
+{
+  "descricao": "Palíndromos sobre {a,b}",
+  "variaveis": ["S"],
+  "terminais": ["a", "b"],
+  "simbolo_inicial": "S",
+  "producoes": {
+    "S": ["aSa", "bSb", "a", "b", "λ"]
+  }
+}

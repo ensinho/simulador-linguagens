@@ -1,0 +1,18 @@
+{
+  "tipo": "MT",
+  "modo": "transdutor",
+  "descricao": "Opção B: soma unária. Entrada 0^a 1 0^b (ex.: 000100 = 3+2), saída 0^(a+b) (00000)",
+  "estados": ["q0", "q1", "q2", "qf"],
+  "alfabeto": ["0", "1"],
+  "alfabeto_fita": ["0", "1", "_"],
+  "branco": "_",
+  "estado_inicial": "q0",
+  "estado_aceita": "qf",
+  "transicoes": [
+    {"de": "q0", "le": "0",                 "move": "R", "para": "q0"},
+    {"de": "q0", "le": "1", "escreve": "0", "move": "R", "para": "q1"},
+    {"de": "q1", "le": "0",                 "move": "R", "para": "q1"},
+    {"de": "q1", "le": "_",                 "move": "L", "para": "q2"},
+    {"de": "q2", "le": "0", "escreve": "_", "move": "L", "para": "qf"}
+  ]
+}

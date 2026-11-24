@@ -1,0 +1,9 @@
+{
+  "descricao": "Parênteses balanceados (gramática ambígua por causa de S -> SS)",
+  "variaveis": ["S"],
+  "terminais": ["(", ")"],
+  "simbolo_inicial": "S",
+  "producoes": {
+    "S": ["(S)", "SS", "λ"]
+  }
+}

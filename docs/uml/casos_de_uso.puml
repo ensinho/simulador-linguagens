@@ -1,0 +1,50 @@
+@startuml casos_de_uso
+' Diagrama de casos de uso - Simulador de Linguagens Formais
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Estudante" as E
+actor "Professor" as P
+P --|> E
+
+rectangle "Simulador de Linguagens Formais" {
+  usecase "UC01 Definir alfabeto Σ" as UC01
+  usecase "UC02 Validar cadeia e calcular\n|w|, concatenação, Σ*, Σ+" as UC02
+  usecase "UC03 Definir linguagem L\n(finita ou por ER)" as UC03
+  usecase "UC04 Carregar modelo de arquivo JSON" as UC04
+  usecase "UC05 Simular AFD / AFN" as UC05
+  usecase "UC06 Converter AFN em AFD" as UC06
+  usecase "UC07 Derivar cadeia em GLC\n(passos + árvore)" as UC07
+  usecase "UC08 Converter GLC para FNC" as UC08
+  usecase "UC09 Simular autômato com pilha" as UC09
+  usecase "UC10 Executar máquina de Turing" as UC10
+  usecase "UC11 Consultar análise de complexidade" as UC11
+  usecase "UC12 Medir complexidade empiricamente" as UC12
+  usecase "UC13 Rodar demonstração completa" as UC13
+  usecase "Exibir passo a passo" as PASSO
+}
+
+E --> UC01
+E --> UC03
+E --> UC04
+E --> UC07
+E --> UC11
+E --> UC13
+
+UC02 .> UC01 : <<include>>
+UC03 .> UC01 : <<include>>
+UC05 .> UC04 : <<include>>
+UC09 .> UC04 : <<include>>
+UC10 .> UC04 : <<include>>
+E --> UC02
+E --> UC05
+E --> UC09
+E --> UC10
+UC06 .> UC05 : <<extend>>
+UC08 .> UC07 : <<extend>>
+UC12 .> UC11 : <<extend>>
+UC05 ..> PASSO : <<include>>
+UC07 ..> PASSO : <<include>>
+UC09 ..> PASSO : <<include>>
+UC10 ..> PASSO : <<include>>
+@enduml

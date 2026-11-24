@@ -1,0 +1,13 @@
+{
+  "tipo": "AFN",
+  "descricao": "L = { w ∈ {a,b}* | w termina em ab } - o AFN 'adivinha' onde começa o sufixo",
+  "alfabeto": ["a", "b"],
+  "estados": ["q0", "q1", "q2"],
+  "estado_inicial": "q0",
+  "estados_finais": ["q2"],
+  "transicoes": [
+    {"de": "q0", "simbolo": "a", "para": ["q0", "q1"]},
+    {"de": "q0", "simbolo": "b", "para": ["q0"]},
+    {"de": "q1", "simbolo": "b", "para": ["q2"]}
+  ]
+}

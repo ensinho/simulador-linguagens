@@ -1,0 +1,41 @@
+{
+  "tipo": "MT",
+  "modo": "reconhecedor",
+  "descricao": "Opção A: L = { w#w | w ∈ {0,1}* } (Sipser, ex. 3.9) - risca pares de símbolos em zigue-zague",
+  "estados": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "qaceita", "qrejeita"],
+  "alfabeto": ["0", "1", "#"],
+  "alfabeto_fita": ["0", "1", "#", "x", "_"],
+  "branco": "_",
+  "estado_inicial": "q1",
+  "estado_aceita": "qaceita",
+  "estado_rejeita": "qrejeita",
+  "transicoes": [
+    {"de": "q1", "le": "0", "escreve": "x", "move": "R", "para": "q2"},
+    {"de": "q1", "le": "1", "escreve": "x", "move": "R", "para": "q3"},
+    {"de": "q1", "le": "#",                 "move": "R", "para": "q8"},
+    {"de": "q1", "le": "_",                 "move": "R", "para": "qrejeita"},
+
+    {"de": "q2", "le": ["0", "1"],          "move": "R", "para": "q2"},
+    {"de": "q2", "le": "#",                 "move": "R", "para": "q4"},
+    {"de": "q2", "le": "_",                 "move": "R", "para": "qrejeita"},
+    {"de": "q3", "le": ["0", "1"],          "move": "R", "para": "q3"},
+    {"de": "q3", "le": "#",                 "move": "R", "para": "q5"},
+    {"de": "q3", "le": "_",                 "move": "R", "para": "qrejeita"},
+
+    {"de": "q4", "le": "x",                 "move": "R", "para": "q4"},
+    {"de": "q4", "le": "0", "escreve": "x", "move": "L", "para": "q6"},
+    {"de": "q4", "le": ["1", "#", "_"],     "move": "R", "para": "qrejeita"},
+    {"de": "q5", "le": "x",                 "move": "R", "para": "q5"},
+    {"de": "q5", "le": "1", "escreve": "x", "move": "L", "para": "q6"},
+    {"de": "q5", "le": ["0", "#", "_"],     "move": "R", "para": "qrejeita"},
+
+    {"de": "q6", "le": ["0", "1", "x"],     "move": "L", "para": "q6"},
+    {"de": "q6", "le": "#",                 "move": "L", "para": "q7"},
+    {"de": "q7", "le": ["0", "1"],          "move": "L", "para": "q7"},
+    {"de": "q7", "le": "x",                 "move": "R", "para": "q1"},
+
+    {"de": "q8", "le": "x",                 "move": "R", "para": "q8"},
+    {"de": "q8", "le": "_",                 "move": "R", "para": "qaceita"},
+    {"de": "q8", "le": ["0", "1", "#"],     "move": "R", "para": "qrejeita"}
+  ]
+}

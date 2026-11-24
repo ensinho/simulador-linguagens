@@ -1,0 +1,19 @@
+{
+  "tipo": "AP",
+  "descricao": "L = { w·wᴿ | w ∈ {a,b}* } - palíndromos de tamanho par (AP NÃO determinístico: adivinha o meio)",
+  "alfabeto": ["a", "b"],
+  "alfabeto_pilha": ["a", "b", "Z"],
+  "estados": ["empilhando", "desempilhando", "fim"],
+  "estado_inicial": "empilhando",
+  "simbolo_inicial_pilha": "Z",
+  "estados_finais": ["fim"],
+  "aceitacao": "estado_final",
+  "transicoes": [
+    {"de": "empilhando",    "le": "a", "desempilha": "ε", "para": "empilhando",    "empilha": "a"},
+    {"de": "empilhando",    "le": "b", "desempilha": "ε", "para": "empilhando",    "empilha": "b"},
+    {"de": "empilhando",    "le": "ε", "desempilha": "ε", "para": "desempilhando", "empilha": "ε"},
+    {"de": "desempilhando", "le": "a", "desempilha": "a", "para": "desempilhando", "empilha": "ε"},
+    {"de": "desempilhando", "le": "b", "desempilha": "b", "para": "desempilhando", "empilha": "ε"},
+    {"de": "desempilhando", "le": "ε", "desempilha": "Z", "para": "fim",           "empilha": "Z"}
+  ]
+}

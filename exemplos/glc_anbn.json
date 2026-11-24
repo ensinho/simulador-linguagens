@@ -1,0 +1,9 @@
+{
+  "descricao": "Exemplo do enunciado: L = { aⁿbⁿ | n ≥ 0 }",
+  "variaveis": ["S"],
+  "terminais": ["a", "b"],
+  "simbolo_inicial": "S",
+  "producoes": {
+    "S": ["aSb", "λ"]
+  }
+}

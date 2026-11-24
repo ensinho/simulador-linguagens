@@ -1,0 +1,179 @@
+@startuml diagrama_classes
+' Diagrama de classes - Simulador de Linguagens Formais
+' Renderizar: https://www.plantuml.com/plantuml  ou extensão PlantUML do VS Code
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+hide empty members
+
+package "cli" {
+  class CLI <<módulo>> {
+    + main(argv): int
+    + menu()
+    + demonstracao()
+    + mostrar_af(af, cadeias)
+    + mostrar_glc(g, cadeias)
+    + mostrar_ap(ap, cadeias)
+    + mostrar_mt(mt, cadeias)
+  }
+}
+
+package "Módulo 1 - linguagens" {
+  class Alfabeto {
+    + simbolos: frozenset<str>
+    + de_texto(texto): Alfabeto
+    + validar_cadeia(w): (bool, list)
+    + pertence(w): bool
+    + sigma_n(n): Iterator<str>
+    + sigma_estrela(k): Iterator<str>
+    + sigma_mais(k): Iterator<str>
+  }
+  class Linguagem {
+    + alfabeto: Alfabeto
+    + palavras: frozenset<str> | None
+    + predicado: Callable | None
+    + finita(Σ, palavras): Linguagem
+    + por_regex(Σ, er): Linguagem
+    + pertence(w): bool
+    + uniao(L): Linguagem
+    + concatenacao(L): Linguagem
+    + fecho_kleene(): Linguagem
+  }
+  Linguagem --> Alfabeto
+}
+
+package "Módulo 2 - automato_finito" {
+  class AutomatoFinito {
+    + estados: set<str>
+    + alfabeto: set<str>
+    + estado_inicial: str
+    + estados_finais: set<str>
+    + transicoes: dict<(str,str), set<str>>
+    + tipo: "AFD" | "AFN"
+    + carregar_json(caminho): AutomatoFinito
+    + validar(): list<str>
+    + fecho_epsilon(S): frozenset
+    + executar(w): ResultadoAF
+    + para_afd(): AutomatoFinito
+  }
+  class ResultadoAF {
+    + aceita: bool
+    + caminho: list<str>
+    + passos: list<str>
+    + motivo: str
+  }
+  AutomatoFinito ..> ResultadoAF : cria
+}
+
+package "Módulo 3 - glc" {
+  class Gramatica {
+    + variaveis: set<str>
+    + terminais: set<str>
+    + producoes: dict<str, list<Corpo>>
+    + inicial: str
+    + carregar_json(caminho): Gramatica
+    + de_texto(texto): Gramatica
+    + anulaveis(): set<str>
+    + para_fnc(): Gramatica
+    + cyk(w): (bool, int)
+    + derivar(w): ResultadoGLC
+  }
+  class ResultadoGLC {
+    + aceita: bool
+    + passos: list<PassoDerivacao>
+    + arvore: No
+  }
+  class PassoDerivacao {
+    + forma_antes: Corpo
+    + variavel: str
+    + corpo: Corpo
+    + forma_depois: Corpo
+  }
+  class No {
+    + simbolo: str
+    + filhos: list<No>
+    + desenhar(): list<str>
+    + fronteira(): str
+  }
+  Gramatica ..> ResultadoGLC : cria
+  ResultadoGLC "1" *-- "*" PassoDerivacao
+  ResultadoGLC "1" *-- "0..1" No
+  No "1" *-- "*" No
+}
+
+package "Módulo 4 - automato_pilha" {
+  class AutomatoPilha {
+    + estados, alfabeto, alfabeto_pilha
+    + simbolo_inicial_pilha: str
+    + transicoes: list<TransicaoAP>
+    + aceitacao: str
+    + executar(w): ResultadoAP
+    + eh_deterministico(): bool
+  }
+  class TransicaoAP {
+    + de, le, desempilha, para, empilha: str
+    + operacao_pilha(): str
+  }
+  class Configuracao {
+    + estado: str
+    + posicao: int
+    + pilha: str
+  }
+  class ResultadoAP {
+    + aceita: bool
+    + passos: list<PassoAP>
+    + tabela(): str
+  }
+  AutomatoPilha "1" *-- "*" TransicaoAP
+  AutomatoPilha ..> Configuracao : explora (BFS)
+  AutomatoPilha ..> ResultadoAP : cria
+}
+
+package "Módulo 5 - maquina_turing" {
+  class MaquinaTuring {
+    + estados, alfabeto, alfabeto_fita
+    + branco: str
+    + estados_aceitacao: set<str>
+    + estado_rejeicao: str
+    + transicoes: dict<(str,str), TransicaoMT>
+    + modo: "reconhecedor" | "transdutor"
+    + executar(w, max_passos): ResultadoMT
+  }
+  class TransicaoMT {
+    + de, le, para, escreve: str
+    + move: L | R | S
+  }
+  class ResultadoMT {
+    + aceita: bool
+    + parou: bool
+    + passos: list<PassoMT>
+    + fita_final: str
+    + saida(): str
+  }
+  MaquinaTuring "1" *-- "*" TransicaoMT
+  MaquinaTuring ..> ResultadoMT : cria
+}
+
+package "Módulo 6 - complexidade" {
+  class AnaliseAlgoritmo {
+    + algoritmo: str
+    + melhor, medio, pior: str
+    + justificativa: str
+  }
+  class Experimento {
+    + nome: str
+    + funcao_ref: str
+    + tamanhos: list<int>
+  }
+}
+Experimento ..> AutomatoFinito
+Experimento ..> Gramatica
+Experimento ..> AutomatoPilha
+Experimento ..> MaquinaTuring
+
+CLI ..> Alfabeto
+CLI ..> AutomatoFinito
+CLI ..> Gramatica
+CLI ..> AutomatoPilha
+CLI ..> MaquinaTuring
+CLI ..> AnaliseAlgoritmo
+@enduml

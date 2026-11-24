@@ -1,0 +1,14 @@
+{
+  "tipo": "AFD",
+  "descricao": "L = { w ∈ {a,b}* | w tem número PAR de a's } (AFD completo)",
+  "alfabeto": ["a", "b"],
+  "estados": ["par", "impar"],
+  "estado_inicial": "par",
+  "estados_finais": ["par"],
+  "transicoes": [
+    {"de": "par",   "simbolo": "a", "para": "impar"},
+    {"de": "par",   "simbolo": "b", "para": "par"},
+    {"de": "impar", "simbolo": "a", "para": "par"},
+    {"de": "impar", "simbolo": "b", "para": "impar"}
+  ]
+}

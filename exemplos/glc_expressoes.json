@@ -1,0 +1,11 @@
+{
+  "descricao": "Expressões aritméticas (precedência de * sobre +), típica de analisador sintático",
+  "variaveis": ["E", "T", "F"],
+  "terminais": ["a", "+", "*", "(", ")"],
+  "simbolo_inicial": "E",
+  "producoes": {
+    "E": ["E+T", "T"],
+    "T": ["T*F", "F"],
+    "F": ["(E)", "a"]
+  }
+}

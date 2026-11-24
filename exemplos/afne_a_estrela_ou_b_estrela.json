@@ -1,0 +1,13 @@
+{
+  "tipo": "AFN",
+  "descricao": "AFN-ε para L = a* ∪ b* (as transições ε escolhem o ramo)",
+  "alfabeto": ["a", "b"],
+  "estados": ["q0", "qa", "qb"],
+  "estado_inicial": "q0",
+  "estados_finais": ["qa", "qb"],
+  "transicoes": [
+    {"de": "q0", "simbolo": "ε", "para": ["qa", "qb"]},
+    {"de": "qa", "simbolo": "a", "para": "qa"},
+    {"de": "qb", "simbolo": "b", "para": "qb"}
+  ]
+}

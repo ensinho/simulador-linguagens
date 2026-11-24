@@ -1,0 +1,23 @@
+@startuml sequencia_execucao
+' Diagrama de sequência: simular uma cadeia em um autômato com pilha
+actor Estudante
+participant "CLI" as C
+participant "AutomatoPilha" as AP
+participant "ResultadoAP" as R
+
+Estudante -> C : python main.py ap exemplos/ap_anbn.json aaabbb
+C -> AP : carregar_json("ap_anbn.json")
+AP -> AP : de_dict() + validar()
+C -> AP : executar("aaabbb")
+loop BFS enquanto houver configurações
+  AP -> AP : desenfileira (estado, posição, pilha)
+  alt configuração aceitante
+    AP -> R ** : ResultadoAP(aceita=True, rastro)
+  else
+    AP -> AP : _sucessores(): aplica δ (empilha/desempilha)
+  end
+end
+AP --> C : ResultadoAP
+C -> R : tabela()
+C --> Estudante : passo a passo (leitura, estado, pilha) + ACEITA/REJEITA
+@enduml

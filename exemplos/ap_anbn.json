@@ -1,0 +1,18 @@
+{
+  "tipo": "AP",
+  "descricao": "Linguagem mínima do enunciado: L = { aⁿbⁿ | n ≥ 1 } (AP determinístico)",
+  "alfabeto": ["a", "b"],
+  "alfabeto_pilha": ["A", "Z"],
+  "estados": ["q0", "q1", "q2"],
+  "estado_inicial": "q0",
+  "simbolo_inicial_pilha": "Z",
+  "estados_finais": ["q2"],
+  "aceitacao": "estado_final",
+  "transicoes": [
+    {"de": "q0", "le": "a", "desempilha": "Z", "para": "q0", "empilha": "AZ"},
+    {"de": "q0", "le": "a", "desempilha": "A", "para": "q0", "empilha": "AA"},
+    {"de": "q0", "le": "b", "desempilha": "A", "para": "q1", "empilha": "ε"},
+    {"de": "q1", "le": "b", "desempilha": "A", "para": "q1", "empilha": "ε"},
+    {"de": "q1", "le": "ε", "desempilha": "Z", "para": "q2", "empilha": "Z"}
+  ]
+}

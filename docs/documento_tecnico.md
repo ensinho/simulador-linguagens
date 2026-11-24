@@ -134,11 +134,20 @@ contexto) ou como **transdutora**, que calcula uma função (opção B, soma un�
 
 ### 3.1 Visão geral
 
-Escolhemos **Python 3** com interface de **console** e nenhuma dependência externa: o projeto roda
-com `python main.py` em qualquer máquina. A arquitetura separa o **núcleo** (um módulo por modelo
-computacional, sem nenhuma entrada ou saída de terminal) da **interface** (`cli.py`). Assim o mesmo
-núcleo atende ao menu interativo, aos comandos diretos e aos testes automatizados, e poderia atender a
-uma futura interface gráfica.
+O núcleo foi escrito em **Python 3**, sem nenhuma dependência externa: a versão de console roda com
+`python main.py` em qualquer máquina. A arquitetura separa o **núcleo** (um módulo por modelo
+computacional, sem nenhuma entrada ou saída de terminal) das **interfaces**. O mesmo núcleo atende a
+duas delas:
+
+- **Console** (`cli.py`): menu interativo e comandos diretos, cobrindo os seis módulos;
+- **Interface gráfica** (bônus): uma aplicação **React + TypeScript** (pasta `web/`, construída com
+  Vite) que desenha o grafo de estados, a pilha do AP e a fita da MT, com controles para avançar e
+  voltar passo a passo e reprodução automática. Ela conversa com `api.py`, um servidor HTTP feito só com a biblioteca padrão
+  do Python, que chama os simuladores reais e devolve cada passo em JSON
+  (`/api/simular/af`, `/api/simular/ap`, `/api/simular/mt`).
+
+Os testes automatizados usam o mesmo núcleo. Como a interface gráfica não reimplementa nenhum
+algoritmo, ela e o console sempre dão a mesma resposta.
 
 ```
 main.py ──► simulador/cli.py ──┬──► linguagens.py        (Módulo 1)
@@ -147,6 +156,7 @@ main.py ──► simulador/cli.py ──┬──► linguagens.py        (Mód
                                ├──► automato_pilha.py    (Módulo 4)
                                ├──► maquina_turing.py    (Módulo 5)
                                └──► complexidade.py      (Módulo 6) ──► usa os módulos 2 a 5
+web/ (React) ──HTTP/JSON──► api.py ──► automato_finito.py, automato_pilha.py, maquina_turing.py
 exemplos/*.json  ──(carregar_json)──► modelos
 tests/           ──► núcleo + cli
 ```
@@ -421,9 +431,7 @@ Implementar os modelos deixou mais concretos vários resultados que em sala vimo
 
 Limitações e trabalhos futuros: (i) os símbolos de Σ têm um único caractere; (ii) a derivação passo a
 passo é exponencial em gramáticas ambíguas, e poderia ser substituída pelo algoritmo de Earley para
-gerar a árvore em O(n³); (iii) não implementamos a minimização de AFD nem a conversão GLC → AP;
-(iv) a interface gráfica (bônus) ficou fora do escopo desta entrega. A arquitetura em núcleo + interface
-foi pensada para que ela possa ser adicionada sem alterar os simuladores.
+gerar a árvore em O(n³); (iii) não implementamos a minimização de AFD nem a conversão GLC → AP.
 
 ---
 
